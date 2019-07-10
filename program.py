@@ -197,7 +197,12 @@ capture.set(1, frame_id)  # napravljen property za indeksiranje frejmova
 
 oldi = None
 
-counter = 0
+counter_1 = 0
+counter_2 = 0
+
+pocetni = 0
+sledeci = 0
+kaunter = 0
 
 # analiza videa frejm po frejm
 
@@ -261,17 +266,45 @@ while True:
             if plato(x, y, h, w, image) is 1:
                 contours_plato.append(cnt)
 
+        # print('Ovde')
+
         cv2.drawContours(image, contours_plato, -1, (0, 0, 255), 2)
 
         cv2.imshow('Contours', image)
         cv2.waitKey(0)
         cv2.destroyAllWindows()
 
+        if pocetni is not 0:
+
+            sve = len(contours)
+            print('Sve sledece %d' % sve)
+
+            kaunter += sve
+            print('Kaunter %d' % kaunter)
+
+            cv2.rectangle(image, (20, 11), (310, 50), (255, 0, 0), 2)
+            cv2.rectangle(image, (1, 320), (348, 364), (255, 0, 0), 2)
+
+        counter_2 += 1
+        # print('DRUGO %d' % counter_2)
+
+        print('DRUGO')
+
+        if counter_2 is 1:
+            pocetni = len(contours)
+            print('Pocetni 1 %d' % pocetni)
+        else:
+            pocetni = kaunter
+            print('Pocetni RESTO %d' % pocetni)
+
+        kaunter = pocetni
+        print('Kaunter II %d' % kaunter)
+
+    # counter_1 += 1
+    # print('PRVO %d' % counter_1)
+
+    print('PRVO')
+
     oldi = frame_gray
-
-    # counter += 1
-    # print('PRVO %d' % counter)
-
-    # print('PRVO')
 
 capture.release()
