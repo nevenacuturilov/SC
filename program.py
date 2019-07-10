@@ -2,11 +2,175 @@ import cv2
 import os
 import numpy as np
 
+
 def rotateImage(image, angle):
-  image_center = tuple(np.array(image.shape[1::-1]) / 2)
-  rotation_matrix = cv2.getRotationMatrix2D(image_center, angle, 1.0)
-  result = cv2.warpAffine(image, rotation_matrix, image.shape[1::-1], flags = cv2.INTER_LINEAR)
-  return result
+
+    image_center = tuple(np.array(image.shape[1::-1]) / 2)
+    rotation_matrix = cv2.getRotationMatrix2D(image_center, angle, 1.0)
+    result = cv2.warpAffine(image, rotation_matrix, image.shape[1::-1], flags=cv2.INTER_LINEAR)
+    return result
+
+
+def plato(x, y, h, w, img):
+
+    bool = 0;
+
+    cv2.rectangle(img, (25, 11), (160, 31), (255, 125, 224), 2)
+    cv2.rectangle(img, (160, 11), (308, 31), (255, 125, 224), 2)
+
+    if x + w > 25 and x + w <= 160:
+        if y + h > 11 and y + h <= 31:
+            bool = 1
+    if x > 160 and x < 308:
+        if y + h > 11 and y + h <= 31:
+            bool = 1
+
+
+
+    cv2.rectangle(img, (43, 31), (160, 51), (255, 125, 224), 2)
+    cv2.rectangle(img, (160, 31), (280, 51), (255, 125, 224), 2)
+
+    if x + w > 43 and x + w <= 160:
+        if y + h > 31 and y + h <= 51:
+            bool = 1
+    if x > 160 and x < 280:
+        if y + h > 31 and y + h <= 51:
+            bool = 1
+
+
+
+    cv2.rectangle(img, (50, 51), (160, 71), (255, 125, 224), 2)
+    cv2.rectangle(img, (160, 51), (265, 71), (255, 125, 224), 2)
+
+    if x + w > 50 and x + w <= 160:
+        if y + h > 51 and y + h <= 71:
+            bool = 1
+    if x > 160 and x < 265:
+        if y + h > 51 and y + h <= 71:
+            bool = 1
+
+
+
+    cv2.rectangle(img, (60, 71), (160, 91), (255, 125, 224), 2)
+    cv2.rectangle(img, (160, 71), (250, 91), (255, 125, 224), 2)
+
+    if x + w > 60 and x + w <= 160:
+        if y + h > 71 and y + h <= 91:
+            bool = 1
+    if x > 160 and x < 250:
+        if y + h > 71 and y + h <= 91:
+            bool = 1
+
+
+
+    cv2.rectangle(img, (72, 91), (160, 171), (255, 125, 224), 2)
+    cv2.rectangle(img, (160, 91), (240, 171), (255, 125, 224), 2)
+
+    if x + w > 72 and x + w <= 160:
+        if y + h > 91 and y + h <= 171:
+            bool = 1
+    if x > 160 and x < 240:
+        if y + h > 91 and y + h <= 171:
+            bool = 1
+
+
+
+    cv2.rectangle(img, (80, 171), (160, 191), (255, 125, 224), 2)
+    cv2.rectangle(img, (160, 171), (240, 191), (255, 125, 224), 2)
+
+    if x + w > 80 and x + w <= 160:
+        if y + h > 171 and y + h <= 191:
+            bool = 1
+    if x > 160 and x < 240:
+        if y + h > 171 and y + h <= 191:
+            bool = 1
+
+
+
+    cv2.rectangle(img, (80, 191), (160, 231), (255, 125, 224), 2)
+    cv2.rectangle(img, (160, 191), (235, 231), (255, 125, 224), 2)
+
+    if x + w > 80 and x + w <= 160:
+        if y > 191 and y <= 231:
+            bool = 1
+    if x > 160 and x < 235:
+        if y > 191 and y <= 231:
+            bool = 1
+
+
+
+    cv2.rectangle(img, (75, 231), (160, 251), (255, 125, 224), 2)
+    cv2.rectangle(img, (160, 231), (238, 251), (255, 125, 224), 2)
+
+    if x + w > 75 and x + w <= 160:
+        if y > 231 and y <= 251:
+            bool = 1
+    if x > 160 and x < 238:
+        if y > 231 and y <= 251:
+            bool = 1
+
+
+
+    cv2.rectangle(img, (80, 251), (160, 271), (255, 125, 224), 2)
+    cv2.rectangle(img, (160, 251), (240, 271), (255, 125, 224), 2)
+
+    if x + w > 80 and x + w <= 160:
+        if y > 251 and y <= 271:
+            bool = 1
+    if x > 160 and x < 240:
+        if y > 251 and y <= 271:
+            bool = 1
+
+
+
+    cv2.rectangle(img, (75, 271), (160, 311), (255, 125, 224), 2)
+    cv2.rectangle(img, (160, 271), (250, 311), (255, 125, 224), 2)
+
+    if x + w > 75 and x + w <= 160:
+        if y > 271 and y <= 311:
+            bool = 1
+    if x > 160 and x < 250:
+        if y > 271 and y <= 311:
+            bool = 1
+
+
+
+    cv2.rectangle(img, (45, 311), (160, 331), (255, 125, 224), 2)
+    cv2.rectangle(img, (160, 311), (252, 331), (255, 125, 224), 2)
+
+    if x + w > 45 and x + w <= 160:
+        if y > 311 and y <= 331:
+            bool = 1
+    if x > 160 and x < 252:
+        if y > 311 and y <= 331:
+            bool = 1
+
+
+
+    cv2.rectangle(img, (0, 331), (160, 351), (255, 125, 224), 2)
+    cv2.rectangle(img, (160, 331), (255, 351), (255, 125, 224), 2)
+
+    if x + w > 0 and x + w <= 160:
+        if y > 331 and y <= 351:
+            bool = 1
+    if x > 160 and x < 255:
+        if y > 331 and y <= 351:
+            bool = 1
+
+
+
+    cv2.rectangle(img, (0, 351), (160, 364), (255, 125, 224), 2)
+    cv2.rectangle(img, (160, 351), (348, 364), (255, 125, 224), 2)
+
+    if x + w > 0 and x + w <= 160:
+        if y > 351 and y <= 364:
+            bool = 1
+    if x > 160 and x < 384:
+        if y > 351 and y <= 364:
+            bool = 1
+
+    return bool
+
 
 # ime foldera u kojem se nalaze video snimci
 folder_name = 'videos/'
@@ -66,6 +230,8 @@ while True:
 
     # print('00')
 
+    contours_plato = []
+
     if oldi is not None:
         # cv2.imshow('Oldi', oldi)
         # print(oldi)
@@ -81,15 +247,21 @@ while True:
 
         kernel = np.ones((3, 3))
         rectangle_kernel = cv2.getStructuringElement(cv2.MORPH_RECT, (3, 10))
-        dilate = cv2.dilate(inverse, rectangle_kernel, iterations=1)
+        dilate = cv2.dilate(inverse, rectangle_kernel, iterations = 1)
         # cv2.imshow('Dilate', dilate)
 
-        # OBICNA DIL ?!
+        image = frame_rotate.copy()
 
         contours, hierarchy = cv2.findContours(dilate, cv2.RETR_LIST, cv2.CHAIN_APPROX_SIMPLE)
 
-        image = frame_rotate.copy()
-        cv2.drawContours(image, contours, -1, (0, 0, 255), 2)
+        for cnt in contours:
+
+            x, y, w, h = cv2.boundingRect(cnt)
+
+            if plato(x, y, h, w, image) is 1:
+                contours_plato.append(cnt)
+
+        cv2.drawContours(image, contours_plato, -1, (0, 0, 255), 2)
 
         cv2.imshow('Contours', image)
         cv2.waitKey(0)
