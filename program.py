@@ -11,7 +11,7 @@ def rotateImage(image, angle):
     return result
 
 
-def plato(x, y, h, w, img):
+def plato(x, y, w, h, img):
 
     bool = 0;
 
@@ -171,6 +171,21 @@ def plato(x, y, h, w, img):
 
     return bool
 
+def borders(x, y, w, h):
+
+    tu = 0
+
+    # gornji
+    if (x > 20 and x < 310) or (x + w > 20 and x + w < 310):
+        if y + h > 11 and y + h < 50:
+            tu = 1
+
+    # donji
+    if (x > 1 and x < 348) or (x + w > 1 and x + w < 348):
+        if y > 320 and y < 364:
+            tu = 2
+
+    return tu
 
 # ime foldera u kojem se nalaze video snimci
 folder_name = 'videos/'
@@ -268,22 +283,61 @@ while True:
 
         # print('Ovde')
 
-        cv2.drawContours(image, contours_plato, -1, (0, 0, 255), 2)
-
-        cv2.imshow('Contours', image)
-        cv2.waitKey(0)
-        cv2.destroyAllWindows()
-
         if pocetni is not 0:
-
-            sve = len(contours)
-            print('Sve sledece %d' % sve)
-
-            kaunter += sve
-            print('Kaunter %d' % kaunter)
 
             cv2.rectangle(image, (20, 11), (310, 50), (255, 0, 0), 2)
             cv2.rectangle(image, (1, 320), (348, 364), (255, 0, 0), 2)
+
+            xx = []
+            aps = 0
+
+            for cnt in contours_plato:
+
+                x, y, w, h = cv2.boundingRect(cnt)
+
+                if w > 15 and h > 15:
+
+                    image = cv2.rectangle(image, (x, y), (x + w, y + h), (0, 255, 0), 2)
+
+                    if borders(x, y, w, h) is 1:
+                        xx.append(x)
+
+                    # gornji
+                    '''if (x > 20 and x < 310) or (x + w > 20 and x + w < 310):
+                        if y + h > 11 and y + h < 50:
+                            xx.append(x)'''
+
+                    if borders(x, y, w, h) is 2:
+                        xx.append(x)
+
+                    # donji
+                    '''if (x > 1 and x < 348) or (x + w > 1 and x + w < 348):
+                        if y > 320 and y < 364:
+                            xx.append(x)'''
+
+
+            sve = len(contours_plato)
+            print('Sve sledece %d' % sve)
+
+            print(xx0)
+            print(xx)
+
+            if len(xx0) < len(xx):
+                # print('RA')
+                aps = abs(len(xx0) - len(xx))
+                print(aps)
+
+            sledeci = aps
+            print('Sledeca RECT %d' % sledeci)
+
+            kaunter += sledeci
+            print('Kaunter %d' % kaunter)
+
+        cv2.drawContours(image, contours_plato, -1, (0, 0, 255), 2)
+
+        cv2.imshow('Contours', image)
+        #cv2.waitKey(0)
+        #cv2.destroyAllWindows()
 
         counter_2 += 1
         # print('DRUGO %d' % counter_2)
@@ -297,6 +351,27 @@ while True:
             pocetni = kaunter
             print('Pocetni RESTO %d' % pocetni)
 
+        xx0 = []
+        for cnt in contours_plato:
+            x0, y0, w0, h0 = cv2.boundingRect(cnt)
+
+            if borders(x0, y0, w0, h0) is 1:
+                xx0.append(x0)
+
+            # gornji
+            '''if (x0 > 20 and x0 < 310) or (x0 + w0 > 20 and x0 + w0 < 310):
+                if y0 + h0 > 11 and y0 + h0 < 50:
+                    xx0.append(x0)'''
+
+            if borders(x0, y0, w0, h0) is 2:
+                xx0.append(x0)
+
+            # donji
+            '''if (x0 > 1 and x0 < 348) or (x0 + w0 > 1 and x0 + w0 < 348):
+                if y0 > 320 and y0 < 364:
+                    xx0.append(x0)'''
+
+
         kaunter = pocetni
         print('Kaunter II %d' % kaunter)
 
@@ -308,3 +383,5 @@ while True:
     oldi = frame_gray
 
 capture.release()
+
+print('Broj ljudi je %d' % kaunter)
