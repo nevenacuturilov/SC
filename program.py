@@ -22,21 +22,25 @@ for video_name in os.listdir(folder_name):
 # print("Broj video snimaka: ", len(video_paths))
 
 # za sada se radi sa samo jednim videom
-name = "videos/video6.mp4"
+name = 'videos/video4.mp4'
 
 # ucitavanje videa
 
 frame_id = 0  # index frejma
 capture = cv2.VideoCapture(name)  # open video
-# print(capture.isOpened())  # true ako je otvoren - ** da se doda za GRESKU
+# print(capture.isOpened())  # true ako je otvoren - *** da se doda za GRESKU
 capture.set(1, frame_id)  # napravljen property za indeksiranje frejmova
+
+oldi = None
+
+counter = 0
 
 # analiza videa frejm po frejm
 
 while True:
     frame_id += 1
     return_value, frame = capture.read()  # ret je true or false, cita frejm po frejm
-    # cv2.imshow("Frame", frame)
+    # cv2.imshow('Frame', frame)
 
     # ako frejm nije zahvacen - javi se greska kad nema ovog dela koda zato sto se ne uhvati bas svaki
     # frejm pa onda ovo ispod nema s cim da radi
@@ -58,11 +62,44 @@ while True:
     # cv2.imshow('RGB', frame_rgb)
 
     frame_gray = cv2.cvtColor(frame_rgb, cv2.COLOR_RGB2GRAY)
-    cv2.imshow('Gray', frame_gray)
+    # cv2.imshow('Gray', frame_gray)
 
-    cv2.waitKey(0)
-    cv2.destroyAllWindows()
+    # print('00')
 
-    break
+    if oldi is not None:
+        # cv2.imshow('Oldi', oldi)
+        # print(oldi)
+
+        difference = cv2.subtract(frame_gray, oldi)
+        # cv2.imshow('Difference', difference)
+
+        binary = cv2.adaptiveThreshold(difference, 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C, cv2.THRESH_BINARY, 15, 3)
+        # cv2.imshow('Binary', binary)
+
+        inverse = ~binary
+        # cv2.imshow('Inverse', inverse)
+
+        kernel = np.ones((3, 3))
+        rectangle_kernel = cv2.getStructuringElement(cv2.MORPH_RECT, (3, 10))
+        dilate = cv2.dilate(inverse, rectangle_kernel, iterations=1)
+        # cv2.imshow('Dilate', dilate)
+
+        # OBICNA DIL ?!
+
+        contours, hierarchy = cv2.findContours(dilate, cv2.RETR_LIST, cv2.CHAIN_APPROX_SIMPLE)
+
+        image = frame_rotate.copy()
+        cv2.drawContours(image, contours, -1, (0, 0, 255), 2)
+
+        cv2.imshow('Contours', image)
+        cv2.waitKey(0)
+        cv2.destroyAllWindows()
+
+    oldi = frame_gray
+
+    # counter += 1
+    # print('PRVO %d' % counter)
+
+    # print('PRVO')
 
 capture.release()
