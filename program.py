@@ -193,6 +193,8 @@ folder_name = 'videos/'
 # lista sa imenima svih 10 videa kroz koju moze da se prodje da bi se svaki video ucitao i analizirao
 video_paths = []
 
+k = [0,0]
+
 for video_name in os.listdir(folder_name):
     video_path = os.path.join(folder_name, video_name)
     video_paths.append(video_path)
@@ -201,187 +203,201 @@ for video_name in os.listdir(folder_name):
 # print("Broj video snimaka: ", len(video_paths))
 
 # za sada se radi sa samo jednim videom
-name = 'videos/video4.mp4'
+# name = 'videos/video4.mp4'
 
-# ucitavanje videa
+for name in video_paths:
 
-frame_id = 0  # index frejma
-capture = cv2.VideoCapture(name)  # open video
-# print(capture.isOpened())  # true ako je otvoren - *** da se doda za GRESKU
-capture.set(1, frame_id)  # napravljen property za indeksiranje frejmova
+    print('*******************************************')
+    print(name)
+    print('*******************************************')
 
-oldi = None
+    # ucitavanje videa
 
-counter_1 = 0
-counter_2 = 0
+    frame_id = 0  # index frejma
+    capture = cv2.VideoCapture(name)  # open video
+    # print(capture.isOpened())  # true ako je otvoren - *** da se doda za GRESKU
+    capture.set(1, frame_id)  # napravljen property za indeksiranje frejmova
 
-pocetni = 0
-sledeci = 0
-kaunter = 0
+    oldi = None
 
-# analiza videa frejm po frejm
+    counter_1 = 0
+    counter_2 = 0
 
-while True:
-    frame_id += 1
-    return_value, frame = capture.read()  # ret je true or false, cita frejm po frejm
-    # cv2.imshow('Frame', frame)
+    pocetni = 0
+    sledeci = 0
+    kaunter = 0
 
-    # ako frejm nije zahvacen - javi se greska kad nema ovog dela koda zato sto se ne uhvati bas svaki
-    # frejm pa onda ovo ispod nema s cim da radi
-    if not return_value:
-        break
+    x0 = 0
+    y0 = 0
+    h0 = 0
+    w0 = 0
 
-    '''if ret_val == 'false':
-        break'''  # ne radi - zasto? ** probati sa !=
+    # analiza videa frejm po frejm
 
-    # dalje se sa frejmom radi kao sa bilo kojom drugom slikom
+    while True:
+        frame_id += 1
+        return_value, frame = capture.read()  # ret je true or false, cita frejm po frejm
+        # cv2.imshow('Frame', frame)
 
-    frame_crop = frame[90:460, 170:530]  # brojevi su rucno podeseni - mozda je moglo i malo drugacije
-    # cv2.imshow('Crop', frame_crop)
+        # ako frejm nije zahvacen - javi se greska kad nema ovog dela koda zato sto se ne uhvati bas svaki
+        # frejm pa onda ovo ispod nema s cim da radi
+        if not return_value:
+            break
 
-    frame_rotate = rotateImage(frame_crop, -4)
-    # cv2.imshow('Rotate', frame_rotate)
+        '''if ret_val == 'false':
+            break'''  # ne radi - zasto? ** probati sa !=
 
-    frame_rgb = cv2.cvtColor(frame_rotate, cv2.COLOR_BGR2RGB)
-    # cv2.imshow('RGB', frame_rgb)
+        # dalje se sa frejmom radi kao sa bilo kojom drugom slikom
 
-    frame_gray = cv2.cvtColor(frame_rgb, cv2.COLOR_RGB2GRAY)
-    # cv2.imshow('Gray', frame_gray)
+        frame_crop = frame[90:460, 170:530]  # brojevi su rucno podeseni - mozda je moglo i malo drugacije
+        # cv2.imshow('Crop', frame_crop)
 
-    # print('00')
+        frame_rotate = rotateImage(frame_crop, -4)
+        # cv2.imshow('Rotate', frame_rotate)
 
-    contours_plato = []
+        frame_rgb = cv2.cvtColor(frame_rotate, cv2.COLOR_BGR2RGB)
+        # cv2.imshow('RGB', frame_rgb)
 
-    if oldi is not None:
-        # cv2.imshow('Oldi', oldi)
-        # print(oldi)
+        frame_gray = cv2.cvtColor(frame_rgb, cv2.COLOR_RGB2GRAY)
+        # cv2.imshow('Gray', frame_gray)
 
-        difference = cv2.subtract(frame_gray, oldi)
-        # cv2.imshow('Difference', difference)
+        # print('00')
 
-        binary = cv2.adaptiveThreshold(difference, 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C, cv2.THRESH_BINARY, 15, 3)
-        # cv2.imshow('Binary', binary)
+        contours_plato = []
 
-        inverse = ~binary
-        # cv2.imshow('Inverse', inverse)
+        if oldi is not None:
+            # cv2.imshow('Oldi', oldi)
+            # print(oldi)
 
-        kernel = np.ones((3, 3))
-        rectangle_kernel = cv2.getStructuringElement(cv2.MORPH_RECT, (3, 10))
-        dilate = cv2.dilate(inverse, rectangle_kernel, iterations = 1)
-        # cv2.imshow('Dilate', dilate)
+            difference = cv2.subtract(frame_gray, oldi)
+            # cv2.imshow('Difference', difference)
 
-        image = frame_rotate.copy()
+            binary = cv2.adaptiveThreshold(difference, 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C, cv2.THRESH_BINARY, 15, 3)
+            # cv2.imshow('Binary', binary)
 
-        contours, hierarchy = cv2.findContours(dilate, cv2.RETR_LIST, cv2.CHAIN_APPROX_SIMPLE)
+            inverse = ~binary
+            # cv2.imshow('Inverse', inverse)
 
-        for cnt in contours:
+            kernel = np.ones((3, 3))
+            rectangle_kernel = cv2.getStructuringElement(cv2.MORPH_RECT, (3, 10))
+            dilate = cv2.dilate(inverse, rectangle_kernel, iterations = 1)
+            # cv2.imshow('Dilate', dilate)
 
-            x, y, w, h = cv2.boundingRect(cnt)
+            image = frame_rotate.copy()
 
-            if plato(x, y, h, w, image) is 1:
-                contours_plato.append(cnt)
+            contours, hierarchy = cv2.findContours(dilate, cv2.RETR_LIST, cv2.CHAIN_APPROX_SIMPLE)
 
-        # print('Ovde')
-
-        if pocetni is not 0:
-
-            cv2.rectangle(image, (20, 11), (310, 50), (255, 0, 0), 2)
-            cv2.rectangle(image, (1, 320), (348, 364), (255, 0, 0), 2)
-
-            xx = []
-            aps = 0
-
-            for cnt in contours_plato:
+            for cnt in contours:
 
                 x, y, w, h = cv2.boundingRect(cnt)
 
-                if w > 15 and h > 15:
+                if plato(x, y, h, w, image) is 1:
+                    contours_plato.append(cnt)
 
-                    image = cv2.rectangle(image, (x, y), (x + w, y + h), (0, 255, 0), 2)
+            # print('Ovde')
 
-                    if borders(x, y, w, h) is 1:
-                        xx.append(x)
+            if pocetni is not 0:
 
-                    # gornji
-                    '''if (x > 20 and x < 310) or (x + w > 20 and x + w < 310):
-                        if y + h > 11 and y + h < 50:
-                            xx.append(x)'''
+                cv2.rectangle(image, (20, 11), (310, 50), (255, 0, 0), 2)
+                cv2.rectangle(image, (1, 320), (348, 364), (255, 0, 0), 2)
 
-                    if borders(x, y, w, h) is 2:
-                        xx.append(x)
+                xx = []
+                aps = 0
 
-                    # donji
-                    '''if (x > 1 and x < 348) or (x + w > 1 and x + w < 348):
-                        if y > 320 and y < 364:
-                            xx.append(x)'''
+                for cnt in contours_plato:
 
+                    x, y, w, h = cv2.boundingRect(cnt)
 
-            sve = len(contours_plato)
-            print('Sve sledece %d' % sve)
+                    if w > 15 and h > 15:
 
-            print(xx0)
-            print(xx)
+                        image = cv2.rectangle(image, (x, y), (x + w, y + h), (0, 255, 0), 2)
 
-            if len(xx0) < len(xx):
-                # print('RA')
-                aps = abs(len(xx0) - len(xx))
-                print(aps)
+                        if borders(x, y, w, h) is 1:
+                            xx.append(x)
 
-            sledeci = aps
-            print('Sledeca RECT %d' % sledeci)
+                        # gornji
+                        '''if (x > 20 and x < 310) or (x + w > 20 and x + w < 310):
+                            if y + h > 11 and y + h < 50:
+                                xx.append(x)'''
 
-            kaunter += sledeci
-            print('Kaunter %d' % kaunter)
+                        if borders(x, y, w, h) is 2:
+                            xx.append(x)
 
-        cv2.drawContours(image, contours_plato, -1, (0, 0, 255), 2)
-
-        cv2.imshow('Contours', image)
-        #cv2.waitKey(0)
-        #cv2.destroyAllWindows()
-
-        counter_2 += 1
-        # print('DRUGO %d' % counter_2)
-
-        print('DRUGO')
-
-        if counter_2 is 1:
-            pocetni = len(contours)
-            print('Pocetni 1 %d' % pocetni)
-        else:
-            pocetni = kaunter
-            print('Pocetni RESTO %d' % pocetni)
-
-        xx0 = []
-        for cnt in contours_plato:
-            x0, y0, w0, h0 = cv2.boundingRect(cnt)
-
-            if borders(x0, y0, w0, h0) is 1:
-                xx0.append(x0)
-
-            # gornji
-            '''if (x0 > 20 and x0 < 310) or (x0 + w0 > 20 and x0 + w0 < 310):
-                if y0 + h0 > 11 and y0 + h0 < 50:
-                    xx0.append(x0)'''
-
-            if borders(x0, y0, w0, h0) is 2:
-                xx0.append(x0)
-
-            # donji
-            '''if (x0 > 1 and x0 < 348) or (x0 + w0 > 1 and x0 + w0 < 348):
-                if y0 > 320 and y0 < 364:
-                    xx0.append(x0)'''
+                        # donji
+                        '''if (x > 1 and x < 348) or (x + w > 1 and x + w < 348):
+                            if y > 320 and y < 364:
+                                xx.append(x)'''
 
 
-        kaunter = pocetni
-        print('Kaunter II %d' % kaunter)
+                sve = len(contours_plato)
+                print('Sve sledece %d' % sve)
 
-    # counter_1 += 1
-    # print('PRVO %d' % counter_1)
+                print(xx0)
+                print(xx)
 
-    print('PRVO')
+                if len(xx0) < len(xx):
+                    # print('RA')
+                    aps = abs(len(xx0) - len(xx))
+                    print(aps)
 
-    oldi = frame_gray
+                sledeci = aps
+                print('Sledeca RECT %d' % sledeci)
 
-capture.release()
+                kaunter += sledeci
+                print('Kaunter %d' % kaunter)
 
-print('Broj ljudi je %d' % kaunter)
+            cv2.drawContours(image, contours_plato, -1, (0, 0, 255), 2)
+
+            cv2.imshow('Contours', image)
+            #cv2.waitKey(0)
+            #cv2.destroyAllWindows()
+
+            counter_2 += 1
+            # print('DRUGO %d' % counter_2)
+
+            print('DRUGO')
+
+            if counter_2 is 1:
+                pocetni = len(contours)
+                print('Pocetni 1 %d' % pocetni)
+            else:
+                pocetni = kaunter
+                print('Pocetni RESTO %d' % pocetni)
+
+            xx0 = []
+            for cnt in contours_plato:
+                x0, y0, w0, h0 = cv2.boundingRect(cnt)
+
+                if borders(x0, y0, w0, h0) is 1:
+                    xx0.append(x0)
+
+                # gornji
+                '''if (x0 > 20 and x0 < 310) or (x0 + w0 > 20 and x0 + w0 < 310):
+                    if y0 + h0 > 11 and y0 + h0 < 50:
+                        xx0.append(x0)'''
+
+                if borders(x0, y0, w0, h0) is 2:
+                    xx0.append(x0)
+
+                # donji
+                '''if (x0 > 1 and x0 < 348) or (x0 + w0 > 1 and x0 + w0 < 348):
+                    if y0 > 320 and y0 < 364:
+                        xx0.append(x0)'''
+
+
+            kaunter = pocetni
+            print('Kaunter II %d' % kaunter)
+
+        # counter_1 += 1
+        # print('PRVO %d' % counter_1)
+
+        print('PRVO')
+
+        oldi = frame_gray
+
+    # print('########## K %d' % kaunter)
+    k.append(kaunter)
+    print(k)
+
+    capture.release()
+
