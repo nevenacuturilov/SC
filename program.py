@@ -395,11 +395,12 @@ for name in video_paths:
 
         oldi = frame_gray
 
-    # print('########## K %d' % kaunter)
     k.append(kaunter)
     print(k)
 
     capture.release()
+
+# zapisivanje resenja u datoteku
 
 res = []
 fc = ''
