@@ -401,3 +401,36 @@ for name in video_paths:
 
     capture.release()
 
+res = []
+fc = ''
+iip = 'Ra47/2013, Nevena Cuturilov'
+with open('out.txt') as file:
+
+    data = file.read()
+    lines = data.split('\n')
+
+    for id, line in enumerate(lines):
+
+        if id is 1:
+            fc = line
+
+        if (id > 1):
+            linija = line.split(',')
+
+            if (linija[0] == ''):
+                continue
+
+            res.append(linija)
+            linija[1] = linija[1].replace('0', str(k[id]))
+            #print(res)
+
+string = ''
+with open('out.txt', 'w+') as f:
+
+    f.write(iip + '\n')
+    f.write(fc + '\n')
+
+    for i in res:
+        string = str(i[0]) + ',' + str(i[1]) + '\n'
+        print(string)
+        f.write(string)
