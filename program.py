@@ -11,12 +11,12 @@ def rotateImage(image, angle):
     return result
 
 
-def plato(x, y, w, h, img):
+def plato(x, y, w, h):
 
     bool = 0;
 
-    cv2.rectangle(img, (25, 11), (160, 31), (255, 125, 224), 2)
-    cv2.rectangle(img, (160, 11), (308, 31), (255, 125, 224), 2)
+    # cv2.rectangle(img, (25, 11), (160, 31), (255, 125, 224), 2)
+    # cv2.rectangle(img, (160, 11), (308, 31), (255, 125, 224), 2)
 
     if x + w > 25 and x + w <= 160:
         if y + h > 11 and y + h <= 31:
@@ -27,8 +27,8 @@ def plato(x, y, w, h, img):
 
 
 
-    cv2.rectangle(img, (43, 31), (160, 51), (255, 125, 224), 2)
-    cv2.rectangle(img, (160, 31), (280, 51), (255, 125, 224), 2)
+    # cv2.rectangle(img, (43, 31), (160, 51), (255, 125, 224), 2)
+    # cv2.rectangle(img, (160, 31), (280, 51), (255, 125, 224), 2)
 
     if x + w > 43 and x + w <= 160:
         if y + h > 31 and y + h <= 51:
@@ -39,8 +39,8 @@ def plato(x, y, w, h, img):
 
 
 
-    cv2.rectangle(img, (50, 51), (160, 71), (255, 125, 224), 2)
-    cv2.rectangle(img, (160, 51), (265, 71), (255, 125, 224), 2)
+    # cv2.rectangle(img, (50, 51), (160, 71), (255, 125, 224), 2)
+    # cv2.rectangle(img, (160, 51), (265, 71), (255, 125, 224), 2)
 
     if x + w > 50 and x + w <= 160:
         if y + h > 51 and y + h <= 71:
@@ -51,8 +51,8 @@ def plato(x, y, w, h, img):
 
 
 
-    cv2.rectangle(img, (60, 71), (160, 91), (255, 125, 224), 2)
-    cv2.rectangle(img, (160, 71), (250, 91), (255, 125, 224), 2)
+    # cv2.rectangle(img, (60, 71), (160, 91), (255, 125, 224), 2)
+    # cv2.rectangle(img, (160, 71), (250, 91), (255, 125, 224), 2)
 
     if x + w > 60 and x + w <= 160:
         if y + h > 71 and y + h <= 91:
@@ -63,8 +63,8 @@ def plato(x, y, w, h, img):
 
 
 
-    cv2.rectangle(img, (72, 91), (160, 171), (255, 125, 224), 2)
-    cv2.rectangle(img, (160, 91), (240, 171), (255, 125, 224), 2)
+    # cv2.rectangle(img, (72, 91), (160, 171), (255, 125, 224), 2)
+    # cv2.rectangle(img, (160, 91), (240, 171), (255, 125, 224), 2)
 
     if x + w > 72 and x + w <= 160:
         if y + h > 91 and y + h <= 171:
@@ -75,8 +75,8 @@ def plato(x, y, w, h, img):
 
 
 
-    cv2.rectangle(img, (80, 171), (160, 191), (255, 125, 224), 2)
-    cv2.rectangle(img, (160, 171), (240, 191), (255, 125, 224), 2)
+    # cv2.rectangle(img, (80, 171), (160, 191), (255, 125, 224), 2)
+    # cv2.rectangle(img, (160, 171), (240, 191), (255, 125, 224), 2)
 
     if x + w > 80 and x + w <= 160:
         if y + h > 171 and y + h <= 191:
@@ -87,8 +87,8 @@ def plato(x, y, w, h, img):
 
 
 
-    cv2.rectangle(img, (80, 191), (160, 231), (255, 125, 224), 2)
-    cv2.rectangle(img, (160, 191), (235, 231), (255, 125, 224), 2)
+    # cv2.rectangle(img, (80, 191), (160, 231), (255, 125, 224), 2)
+    # cv2.rectangle(img, (160, 191), (235, 231), (255, 125, 224), 2)
 
     if x + w > 80 and x + w <= 160:
         if y > 191 and y <= 231:
@@ -99,8 +99,8 @@ def plato(x, y, w, h, img):
 
 
 
-    cv2.rectangle(img, (75, 231), (160, 251), (255, 125, 224), 2)
-    cv2.rectangle(img, (160, 231), (238, 251), (255, 125, 224), 2)
+    # cv2.rectangle(img, (75, 231), (160, 251), (255, 125, 224), 2)
+    # cv2.rectangle(img, (160, 231), (238, 251), (255, 125, 224), 2)
 
     if x + w > 75 and x + w <= 160:
         if y > 231 and y <= 251:
@@ -111,8 +111,8 @@ def plato(x, y, w, h, img):
 
 
 
-    cv2.rectangle(img, (80, 251), (160, 271), (255, 125, 224), 2)
-    cv2.rectangle(img, (160, 251), (240, 271), (255, 125, 224), 2)
+    # cv2.rectangle(img, (80, 251), (160, 271), (255, 125, 224), 2)
+    # cv2.rectangle(img, (160, 251), (240, 271), (255, 125, 224), 2)
 
     if x + w > 80 and x + w <= 160:
         if y > 251 and y <= 271:
@@ -123,8 +123,8 @@ def plato(x, y, w, h, img):
 
 
 
-    cv2.rectangle(img, (75, 271), (160, 311), (255, 125, 224), 2)
-    cv2.rectangle(img, (160, 271), (250, 311), (255, 125, 224), 2)
+    # cv2.rectangle(img, (75, 271), (160, 311), (255, 125, 224), 2)
+    # cv2.rectangle(img, (160, 271), (250, 311), (255, 125, 224), 2)
 
     if x + w > 75 and x + w <= 160:
         if y > 271 and y <= 311:
@@ -135,8 +135,8 @@ def plato(x, y, w, h, img):
 
 
 
-    cv2.rectangle(img, (45, 311), (160, 331), (255, 125, 224), 2)
-    cv2.rectangle(img, (160, 311), (252, 331), (255, 125, 224), 2)
+    # cv2.rectangle(img, (45, 311), (160, 331), (255, 125, 224), 2)
+    # cv2.rectangle(img, (160, 311), (252, 331), (255, 125, 224), 2)
 
     if x + w > 45 and x + w <= 160:
         if y > 311 and y <= 331:
@@ -147,8 +147,8 @@ def plato(x, y, w, h, img):
 
 
 
-    cv2.rectangle(img, (0, 331), (160, 351), (255, 125, 224), 2)
-    cv2.rectangle(img, (160, 331), (255, 351), (255, 125, 224), 2)
+    # cv2.rectangle(img, (0, 331), (160, 351), (255, 125, 224), 2)
+    # cv2.rectangle(img, (160, 331), (255, 351), (255, 125, 224), 2)
 
     if x + w > 0 and x + w <= 160:
         if y > 331 and y <= 351:
@@ -159,8 +159,8 @@ def plato(x, y, w, h, img):
 
 
 
-    cv2.rectangle(img, (0, 351), (160, 364), (255, 125, 224), 2)
-    cv2.rectangle(img, (160, 351), (348, 364), (255, 125, 224), 2)
+    # cv2.rectangle(img, (0, 351), (160, 364), (255, 125, 224), 2)
+    # cv2.rectangle(img, (160, 351), (348, 364), (255, 125, 224), 2)
 
     if x + w > 0 and x + w <= 160:
         if y > 351 and y <= 364:
@@ -291,7 +291,7 @@ for name in video_paths:
 
                 x, y, w, h = cv2.boundingRect(cnt)
 
-                if plato(x, y, h, w, image) is 1:
+                if plato(x, y, w, h) is 1:
                     contours_plato.append(cnt)
 
             # print('Ovde')
@@ -312,18 +312,18 @@ for name in video_paths:
 
                         image = cv2.rectangle(image, (x, y), (x + w, y + h), (0, 255, 0), 2)
 
+                        # gornji
                         if borders(x, y, w, h) is 1:
                             xx.append(x)
 
-                        # gornji
                         '''if (x > 20 and x < 310) or (x + w > 20 and x + w < 310):
                             if y + h > 11 and y + h < 50:
                                 xx.append(x)'''
 
+                        # donji
                         if borders(x, y, w, h) is 2:
                             xx.append(x)
 
-                        # donji
                         '''if (x > 1 and x < 348) or (x + w > 1 and x + w < 348):
                             if y > 320 and y < 364:
                                 xx.append(x)'''
@@ -368,18 +368,17 @@ for name in video_paths:
             for cnt in contours_plato:
                 x0, y0, w0, h0 = cv2.boundingRect(cnt)
 
+                # gornji
                 if borders(x0, y0, w0, h0) is 1:
                     xx0.append(x0)
 
-                # gornji
                 '''if (x0 > 20 and x0 < 310) or (x0 + w0 > 20 and x0 + w0 < 310):
                     if y0 + h0 > 11 and y0 + h0 < 50:
                         xx0.append(x0)'''
-
+                # donji
                 if borders(x0, y0, w0, h0) is 2:
                     xx0.append(x0)
 
-                # donji
                 '''if (x0 > 1 and x0 < 348) or (x0 + w0 > 1 and x0 + w0 < 348):
                     if y0 > 320 and y0 < 364:
                         xx0.append(x0)'''
